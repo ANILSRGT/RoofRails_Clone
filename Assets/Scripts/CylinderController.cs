@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CylinderController : MonoBehaviour
 {
     [SerializeField] private float resetPositionSpeed = 0.1f;
     private Coroutine lastResetPositionCoroutine;
 
-    public void CutCylinder(Transform cutter)
+    public void CutCylinder(Transform cutter, UnityAction callback)
     {
         float y = transform.localScale.y;
         float distance = 0.0f;
@@ -45,10 +46,10 @@ public class CylinderController : MonoBehaviour
         Destroy(cylinder, 2f);
 
         if (lastResetPositionCoroutine != null) StopCoroutine(lastResetPositionCoroutine);
-        lastResetPositionCoroutine = StartCoroutine(ResetPosition());
+        lastResetPositionCoroutine = StartCoroutine(ResetPosition(callback));
     }
 
-    private IEnumerator ResetPosition()
+    private IEnumerator ResetPosition(UnityAction callback)
     {
         yield return new WaitForSeconds(0.25f);
         Vector3 newPosition = new Vector3(0, transform.localPosition.y, transform.localPosition.z);
@@ -56,6 +57,8 @@ public class CylinderController : MonoBehaviour
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, newPosition, resetPositionSpeed);
             yield return null;
-        } while (transform.position.x != 0);
+        } while (transform.localPosition.x != 0);
+
+        callback?.Invoke();
     }
 }

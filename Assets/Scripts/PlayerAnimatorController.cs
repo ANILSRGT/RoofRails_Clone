@@ -2,29 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimatorController : MonoBehaviour
+namespace PlayerAnimatorControllerNamespace
 {
-    public enum PlayerAnimLoopingStatus { Sprint, FallingIdle, HangIdle }
-    private PlayerAnimLoopingStatus currentPlayerAnimStatus;
-    private Animator animator;
-    [HideInInspector] public Vector3 deltaPos;
+    public enum PlayerAnimLoopingStatus { Sprint, Falling, None }
 
-    private void Start()
+    public class PlayerAnimatorController : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        animator.applyRootMotion = true;
-        SetLoopingAnimMode(PlayerAnimLoopingStatus.Sprint);
-    }
+        public PlayerAnimLoopingStatus currentPlayerAnimStatus { get; private set; }
+        private Animator animator;
+        [HideInInspector] public Vector3 deltaPos;
 
-    public void SetLoopingAnimMode(PlayerAnimLoopingStatus mode)
-    {
-        currentPlayerAnimStatus = mode;
-        animator.SetFloat("AnimMode", (int)currentPlayerAnimStatus);
-    }
+        private void Awake()
+        {
+            animator = GetComponent<Animator>();
+            animator.applyRootMotion = true;
+            SetRigged(true);
+            DeactiveLanding();
+            SetLoopingAnimMode(PlayerAnimLoopingStatus.Sprint);
+        }
 
-    private void OnAnimatorMove()
-    {
-        Vector3 velocity = animator.deltaPosition;
-        deltaPos = velocity;
+        public void SetLoopingAnimMode(PlayerAnimLoopingStatus mode)
+        {
+            currentPlayerAnimStatus = mode;
+            animator.SetFloat("AnimMode", (int)currentPlayerAnimStatus);
+        }
+
+        public void ActiveLanding()
+        {
+            SetLoopingAnimMode(PlayerAnimLoopingStatus.None);
+            animator.SetBool("Landing", true);
+        }
+
+        public void DeactiveLanding()
+        {
+            SetLoopingAnimMode(PlayerAnimLoopingStatus.Sprint);
+            animator.SetBool("Landing", false);
+        }
+
+        public void SetRigged(bool isRigged)
+        {
+            animator.SetBool("Rigged", isRigged);
+        }
+
+        private void OnAnimatorMove()
+        {
+            Vector3 velocity = animator.deltaPosition;
+            deltaPos = velocity;
+        }
     }
 }
