@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace PlayerAnimatorControllerNamespace
 {
-    public enum PlayerAnimLoopingStatus { Sprint, Falling, None }
+    public enum PlayerAnimLoopingStatus { Idle, Sprint, Falling, None }
 
     public class PlayerAnimatorController : MonoBehaviour
     {
@@ -18,7 +18,7 @@ namespace PlayerAnimatorControllerNamespace
             animator.applyRootMotion = true;
             SetRigged(true);
             DeactiveLanding();
-            SetLoopingAnimMode(PlayerAnimLoopingStatus.Sprint);
+            SetLoopingAnimMode(PlayerAnimLoopingStatus.Idle);
         }
 
         public void SetLoopingAnimMode(PlayerAnimLoopingStatus mode)

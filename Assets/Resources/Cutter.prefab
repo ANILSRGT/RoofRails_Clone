@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 650668695024895806}
   - component: {fileID: 650668695024895801}
+  - component: {fileID: 7971780565460465583}
+  - component: {fileID: 6944920597989803810}
   m_Layer: 0
   m_Name: Cutter
   m_TagString: Cutter
@@ -49,6 +51,34 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!65 &7971780565460465583
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650668695024895794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0952598, y: 0.89, z: 0.84979147}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6944920597989803810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650668695024895794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad403a73adf504b418ac514ce848e349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 4687270325660017693}
+  sawType: 0
+  rotateSpeed: 100
 --- !u!1 &8699627141496640751
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +90,6 @@ GameObject:
   - component: {fileID: 4687270325660017693}
   - component: {fileID: 6590567436710757635}
   - component: {fileID: 3029124625165476229}
-  - component: {fileID: 8543389242668492766}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -133,16 +162,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8543389242668492766
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8699627141496640751}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.84998995, y: 0.85616344, z: 0.007656967}
-  m_Center: {x: 0, y: 0, z: 0}
