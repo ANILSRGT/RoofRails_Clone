@@ -165,10 +165,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Finish") && !isFinish)
         {
+            rb.constraints = RigidbodyConstraints.FreezeAll;
             playerAnimatorController.SetLoopingAnimMode(PlayerAnimLoopingStatus.None);
             playerAnimatorController.ActiveLanding();
             FinishGroundItem finishItem = other.gameObject.GetComponentsInChildren<FinishGroundItem>().OrderBy(x => Mathf.Abs(x.transform.position.z - transform.position.z)).First();
             GameManager.Instance?.Success();
+        }
+
+        if (other.gameObject.CompareTag("NormalGround"))
+        {
+            rb.constraints |= RigidbodyConstraints.FreezePositionY;
         }
 
         if (other.gameObject.CompareTag("NormalGround") && playerAnimatorController.currentPlayerAnimStatus == PlayerAnimLoopingStatus.Falling)
@@ -195,6 +201,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("NormalGround"))
         {
+            rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
             playerAnimatorController.SetLoopingAnimMode(PlayerAnimLoopingStatus.Falling);
         }
 

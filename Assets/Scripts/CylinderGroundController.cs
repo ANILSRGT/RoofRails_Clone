@@ -20,6 +20,7 @@ public class CylinderGroundController : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         if (player.cylinderGrounds.Count == 1)
         {
+            player.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionX;
             bool isLeft = player.transform.position.x < transform.position.x;
             player.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(1, 2, 0) * (isLeft ? -1 : 1), ForceMode.VelocityChange);
             player.OnFinish(isFail);
